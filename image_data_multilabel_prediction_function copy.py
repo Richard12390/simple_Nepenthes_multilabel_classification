@@ -52,10 +52,10 @@ def image_data_multilabel_prediction(folder_path,species_group,model_structure,m
 			image_path = os.path.join(folder_path, image)
 			try:
 				image = cv2.imread(image_path)
-
+				
 				prediction_resized_image = cv2.resize(image, (input_shape[1], input_shape[0]))
 				prediction_resized_image = (prediction_resized_image / 255.0).reshape(-1, input_shape[1], input_shape[0], input_shape[2])
-
+				
 				prediction = model.predict(prediction_resized_image)
 				prediction = dict(zip(list(mlb.classes_), list(prediction[0])))
 

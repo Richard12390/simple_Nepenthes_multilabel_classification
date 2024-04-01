@@ -2,9 +2,9 @@
 #%%
 import os
 from keras.preprocessing.image import ImageDataGenerator
+import matplotlib.pyplot as plt
 from tensorflow.compat.v1 import ConfigProto
 from tensorflow.compat.v1 import InteractiveSession
-
 
 def fix_gpu():
     config = ConfigProto()
@@ -38,8 +38,6 @@ train_images = train_data.flow_from_directory(
 
 labels = (train_images.class_indices)
 labels = dict((value,key) for key,value in labels.items())
-
-
 
 # model build
 from sklearn.model_selection import KFold 
@@ -137,9 +135,6 @@ with open("model_structure.json", "w") as json_file:
 result_history = result.history
 print(result_history)
 
-
-
-import matplotlib.pyplot as plt
 fig = plt.figure(figsize = (20, 7))
 plt.subplot(121)
 plt.plot(result_history['accuracy'], label = 'acc')
