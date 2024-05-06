@@ -1,8 +1,7 @@
 import requests
 import time
 import os
-from image_data_multilabel_prediction_function import image_data_multilabel_prediction
-from webdriver_manager.chrome import ChromeDriverManager
+from package.webcrawler_function import image_data_multilabel_prediction, rows_dict_to_csv
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.support import expected_conditions as ec
@@ -10,21 +9,19 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
-from rows_dict_to_csv_function import rows_dict_to_csv
+from webdriver_manager.chrome import ChromeDriverManager
 
 opts = Options()
 opts.add_argument("--window-size=240,1440")
-
 
 URL = "https://borneoexotics.net/shop/"
 driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=opts)
 driver.get(URL)
 
 species_group = ['truncata','veitchii','ventricosa']
-folder_path = 'imgs'
+folder_path = 'be_images'
 
 def store_image_and_csv(folder_path, species_group):
-
     if not os.path.exists(folder_path):
         os.makedirs(folder_path)
     
@@ -100,4 +97,5 @@ def img_webcrawler(folder_path, species_group):
 
     driver.quit()
 
-img_webcrawler(folder_path, species_group)
+if __name__ == '__main__':
+    img_webcrawler(folder_path, species_group)
